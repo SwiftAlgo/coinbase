@@ -8,9 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import coinbase.decoder.L2Snapshot;
-import coinbase.decoder.L2Update;
 import coinbase.decoder.Level2Decoder;
+import coinbase.websocket.Level2ClientEndpointConfig;
+import coinbase.websocket.decoder.L2Snapshot;
+import coinbase.websocket.decoder.L2Update;
 
 class OrderbookTest {
     
@@ -63,7 +64,7 @@ class OrderbookTest {
 		Level2OrderBook orderBook = new Level2OrderBook("BTC-USD", 10);
 		orderBook.onL2Snapshot(snapshot);
 		assertEquals(
-		        "\nBID | ASK\n"
+		        "\n                  BID | ASK\n"
 		        + "6.887669 - 37414.900000 | 37414.910000 - 3.572650\n"
 		        + "0.868000 - 37410.360000 | 37415.150000 - 0.567200\n"
 		        + "0.240000 - 37410.310000 | 37415.660000 - 0.030000\n"
@@ -82,7 +83,8 @@ class OrderbookTest {
 		        + "ASKS (0):\n", l2UpdateBid.toString());
 		
 		assertTrue(orderBook.onL2Update(l2UpdateBid));
-		assertEquals("\nBID | ASK\n"
+		assertEquals(
+		        "\n                    BID | ASK\n"
 		        + "7.011929 - 37414.900000 | 37414.910000 - 3.572650\n"
 		        + "0.868000 - 37410.360000 | 37415.150000 - 0.567200\n"
 		        + "0.240000 - 37410.310000 | 37415.660000 - 0.030000\n"
@@ -104,7 +106,7 @@ class OrderbookTest {
 	    
 	    assertTrue(orderBook.onL2Update(l2UpdateAsk));
 	    assertEquals(
-	            "\nBID | ASK\n"
+	            "\n                    BID | ASK\n"
 	            + "7.011929 - 37414.900000 | 37414.910000 - 3.692650\n"
 	            + "0.868000 - 37410.360000 | 37415.150000 - 0.567200\n"
 	            + "0.240000 - 37410.310000 | 37415.660000 - 0.030000\n"

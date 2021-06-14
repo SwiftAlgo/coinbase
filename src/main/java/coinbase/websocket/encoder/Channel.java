@@ -1,4 +1,4 @@
-package coinbase.encoder;
+package coinbase.websocket.encoder;
 
 public class Channel {
 	

@@ -1,6 +1,4 @@
-package coinbase;
-
-import coinbase.encoder.Channel;
+package coinbase.websocket.encoder;
 
 public class Subscribe {
 	

@@ -2,19 +2,19 @@ package coinbase;
 
 import java.util.Objects;
 
-import coinbase.decoder.L2Snapshot;
-import coinbase.decoder.L2Update;
+import coinbase.websocket.decoder.L2Snapshot;
+import coinbase.websocket.decoder.L2Update;
 
 public class Level2OrderBook {
 
     private final String productId;
-    private final OrderBookSide bidSide;
-    private final OrderBookSide askSide;
+    private final Level2OrderBookSide bidSide;
+    private final Level2OrderBookSide askSide;
 
     public Level2OrderBook(String productId, int levels) {
         this.productId = Objects.requireNonNull(productId);
-        bidSide = new OrderBookSide(true, levels);
-        askSide = new OrderBookSide(false, levels);
+        bidSide = new Level2OrderBookSide(true, levels);
+        askSide = new Level2OrderBookSide(false, levels);
     }
 
     public String productId() {
@@ -41,14 +41,14 @@ public class Level2OrderBook {
     public String toString(int maxLevelsToDisplay) {
         int actualLevels = Math.min(maxLevelsToDisplay, Math.max(bidSide.currentLevels(), askSide.currentLevels()));
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("\nBID | ASK\n"));
+        sb.append(String.format("\n%-12s        BID | ASK\n", productId));
         for (int i = 0; i < actualLevels; ++i) {
             if (i < bidSide.currentLevels()) {
-                sb.append(String.format("%f - %f", bidSide.sizeAtIndex(i), bidSide.priceAtIndex(i)));
+                sb.append(String.format("%-10s - %-10s", Double.toString(bidSide.sizeAtIndex(i)), Double.toString(bidSide.priceAtIndex(i))));
             }
             sb.append(" | ");
             if (i < askSide.currentLevels()) {
-                sb.append(String.format("%f - %f", askSide.priceAtIndex(i), askSide.sizeAtIndex(i)));
+                sb.append(String.format("%-10s - %-10s", Double.toString(askSide.priceAtIndex(i)), Double.toString(askSide.sizeAtIndex(i))));
             }
             sb.append('\n');
         }

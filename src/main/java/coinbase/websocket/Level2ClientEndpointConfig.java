@@ -1,4 +1,4 @@
-package coinbase;
+package coinbase.websocket;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,8 +70,8 @@ public class Level2ClientEndpointConfig implements ClientEndpointConfig {
 		return displayedLevels;
 	}
 	
-	public int levels() {
+	public int retainedLevels() {
 		return retainedLevels;
 	}
-
+	
 }

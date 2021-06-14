@@ -38,6 +38,13 @@ test {
 		events "passed", "skipped", "failed"
 	}
 }
+
+task orderBook(type: JavaExec) {
+    group = "Execution"
+    description = "Show live orderbook for a product"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "coinbase.Level2OrderBookConsole"
+}
     
 idea {
     module {

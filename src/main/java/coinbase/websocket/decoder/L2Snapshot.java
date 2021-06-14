@@ -1,4 +1,4 @@
-package coinbase.decoder;
+package coinbase.websocket.decoder;
 
 public class L2Snapshot extends L2Message {
 

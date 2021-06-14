@@ -6,3 +6,5 @@ To run using Gradle, run task orderBook and pass the product of interest as a pa
 ./gradlew orderBook --args="BTC-USD"
 
 The top 10 price levels are displayed although 100 price levels are maintained to allow for quotes to be pulled.
+
+Hit Ctrl-C to stop.

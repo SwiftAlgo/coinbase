@@ -1,4 +1,4 @@
-package coinbase.decoder;
+package coinbase.websocket.decoder;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -15,9 +15,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import coinbase.websocket.Level2ClientEndpointConfig;
-import coinbase.websocket.decoder.L2Message;
-import coinbase.websocket.decoder.L2Snapshot;
-import coinbase.websocket.decoder.L2Update;
 
 public class Level2Decoder implements Decoder.Text<L2Message> {
 

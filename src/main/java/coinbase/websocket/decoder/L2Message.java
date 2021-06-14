@@ -1,4 +1,4 @@
-package coinbase.decoder;
+package coinbase.websocket.decoder;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -98,29 +98,9 @@ public abstract class L2Message {
 		return bidCount;
 	}
 	
-	/* TODO remove
-	public double bidPrice(int i) {
-		return bidPrices[i];
-	}
-	
-	public double bidSize(int i) {
-		return bidSizes[i];
-	}
-	*/
-	
 	public int askCount() {
 		return askCount;
 	}
-	
-	/* TODO remove
-	public double askPrice(int i) {
-		return askPrices[i];
-	}
-	
-	public double askSize(int i) {
-		return askSizes[i];
-	}
-	*/
 	
 	public double[] bidPrices() {
 	    return bidPrices;

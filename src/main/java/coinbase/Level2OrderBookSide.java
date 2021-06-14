@@ -2,10 +2,10 @@ package coinbase;
 
 import java.util.Arrays;
 
-import coinbase.decoder.L2Snapshot;
-import coinbase.decoder.L2Update;
+import coinbase.websocket.decoder.L2Snapshot;
+import coinbase.websocket.decoder.L2Update;
 
-public class OrderBookSide {
+public class Level2OrderBookSide {
 
     private final boolean bid;
     /*
@@ -15,10 +15,18 @@ public class OrderBookSide {
     private final double[] prices;
     private final double[] sizes;
 
+    /**
+     * Number of currently active levels.
+     **/
     private int levelCount;
 
-    public OrderBookSide(boolean buy, int levels) {
-        this.bid = buy;
+    /**
+     * 
+     * @param bid True for bid side; false for ask side.
+     * @param levels
+     */
+    public Level2OrderBookSide(boolean bid, int levels) {
+        this.bid = bid;
         prices = new double[levels];
         sizes = new double[levels];
     }
@@ -45,12 +53,17 @@ public class OrderBookSide {
         return levelCount;
     }
 
+    /**
+     * Level 2 snapshot.
+     * @param l2Snapshot
+     */
     public void onL2Snapshot(L2Snapshot l2Snapshot) {
         if (levelCount > 0) {
-            Arrays.fill(prices, 0.0);
-            Arrays.fill(sizes, 0.0);
+            Arrays.fill(prices, 0, levelCount, 0.0);
+            Arrays.fill(sizes, 0, levelCount, 0.0);
             levelCount = 0;
         }
+        assert invariants();
         if (bid) {
             l2Snapshot.copyBids(prices, sizes);
             levelCount = l2Snapshot.bidCount();
@@ -61,6 +74,11 @@ public class OrderBookSide {
         assert invariants();
     }
 
+    /**
+     * Level 2 update.
+     * @param l2Update
+     * @return true if a change was applied; false otherwise.
+     */
     public boolean onL2Update(L2Update l2Update) {
         double[] priceUpdates = bid ? l2Update.bidPrices() : l2Update.askPrices();
         double[] sizeUpdates = bid ? l2Update.bidSizes() : l2Update.askSizes();
@@ -99,6 +117,11 @@ public class OrderBookSide {
         return changed;
     }
 
+    /**
+     * Shift array elements one position in passive direction.
+     * Effectively a right shift so all elements from the specified index to the end move one up and the last element drops off.
+     * @param fromIndexInclusive
+     */
     private void shiftPassively(int fromIndexInclusive) {
         for (int shiftIndex = Math.min(levelCount - 1,
                 prices.length - 2); shiftIndex >= fromIndexInclusive; --shiftIndex) {

@@ -1,4 +1,4 @@
-package coinbase;
+package coinbase.encoder;
 
 public class Channel {
 	

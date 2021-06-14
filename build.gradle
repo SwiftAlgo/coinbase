@@ -30,10 +30,6 @@ dependencies {
     
 	testImplementation(platform('org.junit:junit-bom:5.7.2'))
 	testImplementation('org.junit.jupiter:junit-jupiter')
-	
-	// https://mvnrepository.com/artifact/org.glassfish.tyrus.bundles/tyrus-standalone-client
-    //implementation group: 'org.glassfish.tyrus.bundles', name: 'tyrus-standalone-client', version: '1.17'
-	
 }
 
 test {

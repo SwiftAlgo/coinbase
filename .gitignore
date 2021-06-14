@@ -3,3 +3,14 @@
 
 # Ignore Gradle build output directory
 build
+
+# Eclipse
+.project
+.classpath
+bin
+lib
+.settings
+
+# Mac index
+.DS_Store
+
